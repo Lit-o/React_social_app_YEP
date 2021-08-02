@@ -7,7 +7,6 @@ function Profile() {
     return (
         <div className={s.profile_info}>
             <ProfileInfo />
-
             <MyPosts/>
         </div>
     )
