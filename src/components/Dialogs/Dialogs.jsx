@@ -4,29 +4,15 @@ import Message from "./Message/Message";
 import DialogItem from "./DialogItem/DialogItem";
 
 
-const Dialogs = () => {
-    /*якобы данные с сервера*/
-    let dialogsData = [
-            {id: 1, name: 'Lito'},
-            {id: 2, name: 'Dude'},
-            {id: 3, name: 'SpiderMan'},
-            {id: 4, name: 'SpiderLady'}
-        ];
-    let messagesData = [
-            {id: 1, message: 'Hi'},
-            {id: 2, message: 'How is your hommies?'},
-            {id: 3, message: "I'm fine, thx and u?"},
-            {id: 4, message: "I'm fine, thx and Yo?"}
-        ];
-
+const Dialogs = (props) => {
     /*маппим якобы данные с сервера в JSX и далее подставляем эти новые массивы в основной return*/
-    let dialogsElements = dialogsData.map( (dialog) => {
+    let dialogsElements = props.dialogsData.map( (dialog) => {
         return (
             <DialogItem name={dialog.name} id={dialog.id}/>
         )
     })
     /*По сути тот же мап, как и наверху, но в сокращенной записи*/
-    let messagesElements = messagesData.map( text => <Message message={text.message}/>)
+    let messagesElements = props.messagesData.map( text => <Message message={text.message}/>)
 
 
     return (

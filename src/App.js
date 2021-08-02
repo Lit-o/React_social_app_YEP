@@ -8,18 +8,30 @@ import News from "./components/News/News";
 import Music from "./components/Music/Music";
 import Settings from "./components/Settings/Settings";
 
-const App = () => {
+
+let someComponentMusic = () => <Music />
+let someComponentSettings = () => <Settings attr='massive maybe'/>
+/*Эта функция теперь имеет название someComponent и мы ее можем вызвать далее*/
+const App = (props) => {
     return (
         <BrowserRouter>
             <div className='app-wrapper'>
                 <Header/>
                 <Nav/>
                 <div className='app-wrapper-content'>
+                    <Route path='/dialogs' render={ () => <Dialogs dialogsData={props.dialogsData} messagesData={props.messagesData} /> } />
+                    <Route path='/profile' render={ () => <Profile postsData={props.postsData} /> } />
+                    <Route path='/news' render={ () => <News /> } />
+                    <Route path='/music' render={ someComponentMusic } />
+                    <Route path='/settings' component={ someComponentSettings } />
+
+                    {/*
                     <Route path='/dialogs' component={Dialogs}/>
                     <Route path='/profile' component={Profile}/>
                     <Route path='/news' component={News}/>
                     <Route path='/music' component={Music}/>
                     <Route path='/settings' component={Settings}/>
+                    */}
                 </div>
             </div>
         </BrowserRouter>

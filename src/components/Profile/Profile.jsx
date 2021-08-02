@@ -3,11 +3,11 @@ import s from './Profile.module.css';
 import React from "react";
 import ProfileInfo from "./ProfileInfo/ProfileInfo";
 
-function Profile() {
+function Profile(props) {
     return (
         <div className={s.profile_info}>
             <ProfileInfo />
-            <MyPosts/>
+            <MyPosts postsData={props.postsData}/>
         </div>
     )
 }
