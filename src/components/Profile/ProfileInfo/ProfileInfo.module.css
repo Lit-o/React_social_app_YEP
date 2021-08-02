@@ -1,0 +1,29 @@
+
+.main_mood {
+  height: 148px;
+  overflow: hidden;
+}
+.main_mood img {
+    width: 100%;
+  }
+
+.profile_info {
+  padding: 20px;
+}
+
+.profile_ava_cont {
+  width: 220px;
+}
+
+
+.profile_ava_cont img {
+  width: 100%;
+}
+.content{
+  color: bisque;
+}
+
+  .item {
+    color:green;
+  }
+
