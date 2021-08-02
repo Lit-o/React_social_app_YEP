@@ -1,0 +1,8 @@
+.app__header {
+    grid-area: h;
+    background-color: #077;
+  }
+  .app__header img {
+    width: 70px;
+  }
+  
