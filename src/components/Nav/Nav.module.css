@@ -43,3 +43,40 @@ a.active {
     color: gold;
     border: 2px solid gold;
 }
+
+.friends_wrapper {
+    padding: 20px;
+}
+
+.friends_wrapper li a {
+    display: inline-block;
+    width: 100%;
+    position: relative;
+    padding-left: 20px;
+    padding-top: 5px;
+    padding-bottom: 5px;
+    color: #077;
+    text-decoration: none;
+    transition: all 0.3s ease;
+}
+
+.friends_wrapper li a:hover {
+    color:gold;
+}
+.friends_wrapper li a:hover::before {
+    background-color: #077;
+}
+.friends_wrapper li a::before {
+    content: '';
+    position: absolute;
+    left: 0;
+    top: 7px;
+    display: block;
+    width: 16px;
+    height: 16px;
+    -webkit-border-radius: 50%;
+    -moz-border-radius: 50%;
+    border-radius: 50%;
+    background-color: gold;
+    transition: all 0.3s ease;
+}

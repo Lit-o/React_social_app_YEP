@@ -20,7 +20,11 @@ let state = {
             {id: 3, message: "I'm fine, thx and u?"},
             {id: 4, message: "I'm fine, thx and Yo?"}
         ]
+    },
+    sideBar: {
+        friendsHot : ['Jhon', 'Jackie Chan', 'Fiona']
     }
 }
+
 
 export default state;
