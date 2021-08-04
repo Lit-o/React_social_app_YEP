@@ -19,11 +19,18 @@ const App = (props) => {
                 <Header/>
                 <Nav/>
                 <div className='app-wrapper-content'>
-                    <Route path='/dialogs' render={ () => <Dialogs dialogsData={props.dialogsData} messagesData={props.messagesData} /> } />
-                    <Route path='/profile' render={ () => <Profile postsData={props.postsData} /> } />
-                    <Route path='/news' render={ () => <News /> } />
-                    <Route path='/music' render={ someComponentMusic } />
-                    <Route path='/settings' component={ someComponentSettings } />
+                    <Route path='/dialogs'
+                           render={ () => <Dialogs
+                               state={props.state.messagesPage} /> } />
+                    <Route path='/profile'
+                           render={ () => <Profile
+                               state={props.state.profilePage} /> } />
+                    <Route path='/news'
+                           render={ () => <News /> } />
+                    <Route path='/music'
+                           render={ someComponentMusic } />
+                    <Route path='/settings'
+                           component={ someComponentSettings } />
 
                     {/*
                     <Route path='/dialogs' component={Dialogs}/>
