@@ -9,9 +9,9 @@ const MyPosts = (props) => {
     let newPostElement = React.createRef();
 
     let addPost = () => {
-        debugger;
         let text = newPostElement.current.value;
-        alert(text);
+        props.addPost(text);
+        newPostElement.current.value = '';
     }
 
     return (
@@ -20,10 +20,10 @@ const MyPosts = (props) => {
                 <div>
                     <textarea ref={newPostElement}></textarea>
                     <div className="">
-                        <button>Add post</button>
+                        <button onClick={ addPost }>Add post</button>
                     </div>
                     <div className="">
-                        <button onClick={ addPost }>Remove</button>
+                        <button >Remove</button>
                     </div>
 
                 </div>

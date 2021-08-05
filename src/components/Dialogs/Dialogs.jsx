@@ -13,7 +13,7 @@ const Dialogs = (props) => {
     })
     /*По сути тот же мап, как и наверху, но в сокращенной записи*/
     let messagesElements = props.state.messagesData.map( text => <Message message={text.message}/>)
-debugger;
+
 
     let newMessages = React.createRef();
     let addNewMessages = () => {
