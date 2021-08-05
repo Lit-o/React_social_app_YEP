@@ -25,7 +25,8 @@ let state = {
     },
     sideBar: {
         friendsHot : ['Jhon', 'Jackie Chan', 'Fiona']
-    }
+    },
+    letter: ''
 }
 
 
@@ -38,5 +39,13 @@ export let addPost = (postMessage) => {
     state.profilePage.postsData.push(newPost);
     rerenderEntireTree(state);
 }
+
+export let addLetter = (letter) => {
+    state.letter = letter;
+    console.log(state.letter)
+    rerenderEntireTree(state);
+}
+
+
 
 export default state;
