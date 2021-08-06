@@ -24,11 +24,10 @@ let state = {
         ]
     },
     sideBar: {
-        friendsHot : ['Jhon', 'Jackie Chan', 'Fiona']
+        friendsHot: ['Jhon', 'Jackie Chan', 'Fiona']
     },
     letter: ''
 }
-
 
 export let addPost = (postMessage) => {
     let newPost = {
@@ -45,7 +44,5 @@ export let addLetter = (letter) => {
     console.log(state.letter)
     rerenderEntireTree(state);
 }
-
-
 
 export default state;
