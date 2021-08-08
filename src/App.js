@@ -12,7 +12,10 @@ import Settings from "./components/Settings/Settings";
 let someComponentMusic = () => <Music/>
 let someComponentSettings = () => <Settings attr='massive maybe'/>
 /*Эта функция теперь имеет название someComponent и мы ее можем вызвать далее*/
+
+
 const App = (props) => {
+
     return (
         <div className='app-wrapper'>
             <Header/>
@@ -26,6 +29,8 @@ const App = (props) => {
                            state={props.state.profilePage}
                            addPost={props.addPost}
                            addLetter={props.addLetter}
+                           letterL={props.state.letterL}
+
                        />}/>
                 <Route path='/news'
                        render={() => <News/>}/>

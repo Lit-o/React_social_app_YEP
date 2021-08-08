@@ -3,7 +3,6 @@ import Post from './Post/Post';
 import React from 'react';
 
 const MyPosts = (props) => {
-    console.log(props);
 
     let postsElement = props.postsData.map(post => <Post message={post.message} likes={post.likesCount}/>)
 
@@ -19,12 +18,12 @@ const MyPosts = (props) => {
         props.addLetter(letters);
     }
 
-
+// alert(props.letterL);
     return (
             <div className={s.posts_block}>
                 <h2>My posts</h2>
                 <div>
-                    <textarea ref={newPostElement} onChange={addLetters} value={props.letter}/>
+                    <textarea ref={newPostElement} onChange={addLetters} value={props.letterL}/>
                     <div className="">
                         <button onClick={ addPost }>Add post</button>
                     </div>

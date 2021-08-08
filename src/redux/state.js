@@ -1,6 +1,7 @@
 import {rerenderEntireTree} from "../render";
 
 let state = {
+    letterL: '',
     profilePage: {
         postsData: [
             {id: 1, message: "Hi, how are you, my darling Props?", likesCount: 23},
@@ -26,22 +27,22 @@ let state = {
     sideBar: {
         friendsHot: ['Jhon', 'Jackie Chan', 'Fiona']
     },
-    letter: ''
+
 }
 
 export let addPost = () => {
     let newPost = {
         id: 5,
-        message: state.letter,
+        message: state.letterL,
         likesCount: 0
     };
     state.profilePage.postsData.push(newPost);
+    state.letterL = '';
     rerenderEntireTree(state);
 }
 
 export let addLetter = (letter) => {
-    state.letter = letter;
-    console.log(state.letter)
+    state.letterL = letter;
     rerenderEntireTree(state);
 }
 
