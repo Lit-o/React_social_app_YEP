@@ -29,10 +29,10 @@ let state = {
     letter: ''
 }
 
-export let addPost = (postMessage) => {
+export let addPost = () => {
     let newPost = {
         id: 5,
-        message: postMessage,
+        message: state.letter,
         likesCount: 0
     };
     state.profilePage.postsData.push(newPost);
