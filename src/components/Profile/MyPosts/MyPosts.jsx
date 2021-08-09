@@ -1,6 +1,9 @@
 import s from './MyPosts.module.css';
 import Post from './Post/Post';
 import React from 'react';
+import {addLettersActionCreator, addPostActionCreator} from "../../../redux/state";
+
+
 
 const MyPosts = (props) => {
 
@@ -9,12 +12,12 @@ const MyPosts = (props) => {
     let newPostElement = React.createRef();
 
     let addPost = () => {
-        props.dispatch({type: 'ADD-POST'});
+        props.dispatch(addPostActionCreator());
     }
 
     let addLetters = () => {
         let letters = newPostElement.current.value;
-        props.dispatch({type: 'UPDATE-NEW-POST-TEXT', text: letters});
+        props.dispatch(addLettersActionCreator(letters));
     }
 
 // alert(props.letterL);

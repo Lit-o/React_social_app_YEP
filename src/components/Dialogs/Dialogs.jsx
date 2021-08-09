@@ -2,23 +2,30 @@ import React from "react";
 import s from './Dialogs.module.css';
 import Message from "./Message/Message";
 import DialogItem from "./DialogItem/DialogItem";
-
+import {addLettersDialogCreator, addPostDialogCreator} from "../../redux/state"
 
 const Dialogs = (props) => {
+
+    let state = props.store.getState().messagesPage;
     /*маппим якобы данные с сервера в JSX и далее подставляем эти новые массивы в основной return*/
-    let dialogsElements = props.state.dialogsData.map( (dialog) => {
+    let dialogsElements = state.dialogsData.map( (dialog) => {
         return (
             <DialogItem name={dialog.name} id={dialog.id}/>
         )
     })
     /*По сути тот же мап, как и наверху, но в сокращенной записи*/
-    let messagesElements = props.state.messagesData.map( text => <Message message={text.message}/>)
-
-
+    let messagesElements = state.messagesData.map( text => <Message message={text.message}/>)
+    let newMessageBody = state.dialog;
     let newMessages = React.createRef();
+
+
+
     let addNewMessages = () => {
-        let text = newMessages.current.value;
-        alert(text);
+        props.store.dispatch(addPostDialogCreator())
+    }
+    let newDialogLetter = (e) => {
+        let body = e.target.value;
+        props.store.dispatch(addLettersDialogCreator(body));
     }
 
 
@@ -28,9 +35,20 @@ const Dialogs = (props) => {
                 { dialogsElements }
             </div>
             <div className={s.messages}>
-                { messagesElements }
-                <textarea ref={newMessages}></textarea>
-                <button onClick={addNewMessages}>New Messages</button>
+                <div>{messagesElements}</div>
+                <div>
+                    <div>
+                        <textarea
+                        ref={newMessages}
+                        placeholder='Enter you message'
+                        value={newMessageBody}
+                        onChange={newDialogLetter}
+                     />
+                    </div>
+                    <div>
+                        <button onClick={addNewMessages}>New Messages</button>
+                    </div>
+                </div>
             </div>
         </div>
     )

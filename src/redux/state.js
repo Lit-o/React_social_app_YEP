@@ -1,3 +1,8 @@
+const ADD_POST = 'ADD-POST';
+const UPDATE_NEW_POST_TEXT = 'UPDATE-NEW-POST-TEXT';
+const UPDATE_NEW_POST_DIALOG = 'UPDATE-NEW-POST-DIALOG';
+const SEND_MESSAGE = 'SEND-MESSAGE';
+
 let store = {
     _state: {
         profilePage: {
@@ -21,7 +26,8 @@ let store = {
                 {id: 2, message: 'How is your hommies?43'},
                 {id: 3, message: "I'm fine, thx and u?"},
                 {id: 4, message: "I'm fine, thx and Yo?"}
-            ]
+            ],
+            dialog: 'D',
         },
         sideBar: {
             friendsHot: ['Jhon', 'Jackie Chan', 'Fiona']
@@ -47,7 +53,7 @@ let store = {
 
     dispatch(action) {
         // action объект - { type: 'ADD-POST' }
-        if (action.type === 'ADD-POST') {
+        if (action.type === ADD_POST) {
             let newPost = {
                 id: 5,
                 message: this._state.profilePage.letterL,
@@ -57,12 +63,53 @@ let store = {
             this._state.profilePage.letterL = '';
             this._callSubsriber(this._state);
 
-        } else if (action.type === 'UPDATE-NEW-POST-TEXT') {
+        } else if (action.type === UPDATE_NEW_POST_TEXT) {
             this._state.profilePage.letterL = action.text;
+            this._callSubsriber(this._state);
+
+        //    Dialogs methods
+        } else if (action.type === UPDATE_NEW_POST_DIALOG) {
+            this._state.messagesPage.dialog = action.body;
+            this._callSubsriber(this._state);
+
+        } else if (action.type === SEND_MESSAGE) {
+            let body = this._state.messagesPage.dialog
+            this._state.messagesPage.dialog = '';
+            this._state.messagesPage.messagesData.push({id: 5, message: body})
             this._callSubsriber(this._state);
         }
     },
 }
+
+export const addPostActionCreator = () => {
+    return {
+        type: ADD_POST
+    }
+}
+export const addLettersActionCreator = (letters) => {
+    return {
+        type: UPDATE_NEW_POST_TEXT,
+        text: letters
+    }
+}
+
+
+
+export const addPostDialogCreator = () => {
+    return {
+        type: SEND_MESSAGE
+    }
+}
+export const addLettersDialogCreator = (body) => {
+    return {
+        type: UPDATE_NEW_POST_DIALOG,
+        body: body
+    }
+}
+
+
+
+
 
 export default store;
 window.store = store;
