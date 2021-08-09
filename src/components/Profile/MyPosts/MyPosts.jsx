@@ -9,13 +9,12 @@ const MyPosts = (props) => {
     let newPostElement = React.createRef();
 
     let addPost = () => {
-        props.addPost();
-        newPostElement.current.value = '';
+        props.dispatch({type: 'ADD-POST'});
     }
 
     let addLetters = () => {
         let letters = newPostElement.current.value;
-        props.addLetter(letters);
+        props.dispatch({type: 'UPDATE-NEW-POST-TEXT', text: letters});
     }
 
 // alert(props.letterL);
@@ -23,7 +22,7 @@ const MyPosts = (props) => {
             <div className={s.posts_block}>
                 <h2>My posts</h2>
                 <div>
-                    <textarea ref={newPostElement} onChange={addLetters} value={props.letterL}/>
+                    <textarea ref={newPostElement} onChange={ addLetters } value={props.letterL}/>
                     <div className="">
                         <button onClick={ addPost }>Add post</button>
                     </div>

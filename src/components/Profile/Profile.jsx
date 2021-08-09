@@ -9,9 +9,8 @@ function Profile(props) {
             <ProfileInfo />
             <MyPosts
                 postsData={props.state.postsData}
-                addPost={props.addPost}
-                addLetter={props.addLetter}
-                letterL={props.letterL}
+                dispatch={props.dispatch}
+                letterL={props.state.letterL}
             />
         </div>
     )

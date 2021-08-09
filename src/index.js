@@ -14,8 +14,7 @@ let rerenderEntireTree = (state) => {
         <BrowserRouter>
             <React.StrictMode>
                 <App state={state}
-                     addPost={store.addPost.bind(store)}
-                     addLetter={store.addLetter.bind(store)}/>
+                     dispatch={store.dispatch.bind(store)} />
             </React.StrictMode>
         </BrowserRouter>, document.getElementById('root')
     );
