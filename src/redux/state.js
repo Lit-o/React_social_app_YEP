@@ -1,7 +1,6 @@
-const ADD_POST = 'ADD-POST';
-const UPDATE_NEW_POST_TEXT = 'UPDATE-NEW-POST-TEXT';
-const UPDATE_NEW_POST_DIALOG = 'UPDATE-NEW-POST-DIALOG';
-const SEND_MESSAGE = 'SEND-MESSAGE';
+import profileReducer from "./profile-reducer";
+import messageReducer from "./messages-reducer";
+import sidebarReducer from "./sidebar-reducer";
 
 let store = {
     _state: {
@@ -33,83 +32,30 @@ let store = {
             friendsHot: ['Jhon', 'Jackie Chan', 'Fiona']
         }
     },
-    getState () {
+
+    getState() {
         return this._state;
     },
 
     //ререндер через observer из index.js
-    subscribe (observer) {
+    subscribe(observer) {
         this._callSubsriber = observer;
         // Это паттерн observer похож на publisher-subscriber addEventListener
     },
-    _callSubsriber () {
+    _callSubsriber() {
         console.log('state changed')
     },
     // сюда мы присвоим то, что придет в observer, тк, в const subscribe rerenderEntireTree не определен
-// и функция начнет искать объявленную переменную глобально в файле, но не в других функциях
-// она найдет let rerenderEntireTree и присвоет ему observer вместо console
-
-
+    // и функция начнет искать объявленную переменную глобально в файле, но не в других функциях
+    // она найдет let rerenderEntireTree и присвоет ему observer вместо console
 
     dispatch(action) {
-        // action объект - { type: 'ADD-POST' }
-        if (action.type === ADD_POST) {
-            let newPost = {
-                id: 5,
-                message: this._state.profilePage.letterL,
-                likesCount: 0
-            };
-            this._state.profilePage.postsData.push(newPost);
-            this._state.profilePage.letterL = '';
-            this._callSubsriber(this._state);
-
-        } else if (action.type === UPDATE_NEW_POST_TEXT) {
-            this._state.profilePage.letterL = action.text;
-            this._callSubsriber(this._state);
-
-        //    Dialogs methods
-        } else if (action.type === UPDATE_NEW_POST_DIALOG) {
-            this._state.messagesPage.dialog = action.body;
-            this._callSubsriber(this._state);
-
-        } else if (action.type === SEND_MESSAGE) {
-            let body = this._state.messagesPage.dialog
-            this._state.messagesPage.dialog = '';
-            this._state.messagesPage.messagesData.push({id: 5, message: body})
-            this._callSubsriber(this._state);
-        }
-    },
-}
-
-export const addPostActionCreator = () => {
-    return {
-        type: ADD_POST
+        this._state.profilePage = profileReducer(this._state.profilePage, action);
+        this._state.messagesPage = messageReducer(this._state.messagesPage, action);
+        this._state.sideBar = sidebarReducer(this._state.sideBar, action);
+        this._callSubsriber(this._state);
     }
 }
-export const addLettersActionCreator = (letters) => {
-    return {
-        type: UPDATE_NEW_POST_TEXT,
-        text: letters
-    }
-}
-
-
-
-export const addPostDialogCreator = () => {
-    return {
-        type: SEND_MESSAGE
-    }
-}
-export const addLettersDialogCreator = (body) => {
-    return {
-        type: UPDATE_NEW_POST_DIALOG,
-        body: body
-    }
-}
-
-
-
-
 
 export default store;
 window.store = store;
