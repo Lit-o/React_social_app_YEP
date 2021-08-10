@@ -42,9 +42,7 @@ let store = {
         this._callSubsriber = observer;
         // Это паттерн observer похож на publisher-subscriber addEventListener
     },
-    _callSubsriber() {
-        console.log('state changed')
-    },
+
     // сюда мы присвоим то, что придет в observer, тк, в const subscribe rerenderEntireTree не определен
     // и функция начнет искать объявленную переменную глобально в файле, но не в других функциях
     // она найдет let rerenderEntireTree и присвоет ему observer вместо console

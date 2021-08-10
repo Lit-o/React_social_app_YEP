@@ -4,23 +4,23 @@ import React from 'react';
 import {addLettersActionCreator, addPostActionCreator} from "../../../redux/profile-reducer";
 
 
-
 const MyPosts = (props) => {
-
     let postsElement = props.postsData.map(post => <Post message={post.message} likes={post.likesCount}/>)
-
     let newPostElement = React.createRef();
 
+    //при нажимании вызываем profileReducer с помощью метода .dispatch и понеслась.
+    //Основной движ в profile-reducer.js за всеми комментариями туда
     let addPost = () => {
         props.dispatch(addPostActionCreator());
     }
 
+    //при нажимании вызываем profileReducer с помощью метода .dispatch и понеслась.
+    //Основной движ в profile-reducer.js за всеми комментариями туда
     let addLetters = () => {
         let letters = newPostElement.current.value;
         props.dispatch(addLettersActionCreator(letters));
     }
 
-// alert(props.letterL);
     return (
             <div className={s.posts_block}>
                 <h2>My posts</h2>
