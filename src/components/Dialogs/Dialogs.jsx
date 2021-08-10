@@ -6,7 +6,7 @@ import {addLettersDialogCreator, addPostDialogCreator} from "../../redux/message
 
 const Dialogs = (props) => {
 
-    let state = props.store.getState().messagesPage;
+    let state = props.stateDialogs;
     /*маппим якобы данные с сервера в JSX и далее подставляем эти новые массивы в основной return*/
     let dialogsElements = state.dialogsData.map( (dialog) => {
         return (
@@ -18,14 +18,12 @@ const Dialogs = (props) => {
     let newMessageBody = state.dialog;
     let newMessages = React.createRef();
 
-
-
     let addNewMessages = () => {
-        props.store.dispatch(addPostDialogCreator())
+        props.dispatch(addPostDialogCreator())
     }
     let newDialogLetter = (e) => {
         let body = e.target.value;
-        props.store.dispatch(addLettersDialogCreator(body));
+        props.dispatch(addLettersDialogCreator(body));
     }
 
 

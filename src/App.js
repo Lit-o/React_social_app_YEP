@@ -15,7 +15,6 @@ let someComponentSettings = () => <Settings attr='massive maybe'/>
 
 
 const App = (props) => {
-
     return (
         <div className='app-wrapper'>
             <Header/>
@@ -24,8 +23,8 @@ const App = (props) => {
             <div className='app-wrapper-content'>
                 <Route path='/dialogs'
                        render={() => <Dialogs
-                       state={props.state.messagesPage}
-                       store={props.store}
+                       stateDialogs={props.state.messagesPage}
+                       dispatch={props.dispatch}
                        />}
                 />
                 <Route path='/profile'
