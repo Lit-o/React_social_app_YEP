@@ -10,12 +10,13 @@ import store from "./redux/redux-store";
 
 
 // Оглашаем главную основную функцию, которая все-все соберет и нарисует
-let rerenderEntireTree = (state) => {
+let rerenderEntireTree = () => {
     ReactDOM.render(
         <BrowserRouter>
             <React.StrictMode>
-                <App state={state} store={store}
-                     dispatch={store.dispatch.bind(store)}/>
+                <App store={store}
+                     // dispatch={store.dispatch.bind(store)}
+                />
             </React.StrictMode>
         </BrowserRouter>, document.getElementById('root')
     );

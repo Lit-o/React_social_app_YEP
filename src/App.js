@@ -2,11 +2,11 @@ import './App.css';
 import Header from './components/Header/Header';
 import Nav from './components/Nav/Nav';
 import Profile from './components/Profile/Profile';
-import Dialogs from "./components/Dialogs/Dialogs";
 import {Route} from "react-router-dom";
 import News from "./components/News/News";
 import Music from "./components/Music/Music";
 import Settings from "./components/Settings/Settings";
+import DialogsContainer from "./components/Dialogs/DialogsContainer";
 
 
 let someComponentMusic = () => <Music/>
@@ -18,20 +18,17 @@ const App = (props) => {
     return (
         <div className='app-wrapper'>
             <Header/>
-            <Nav state={props.state.sideBar}/>
-
+            <Nav store={props.store}/>
 
             <div className='app-wrapper-content'>
                 <Route path='/dialogs'
                        render={() =>
-                           <Dialogs
-                               stateDialogs={props.state.messagesPage}
-                               dispatch={props.dispatch}
-                           />}
+                           <DialogsContainer store={props.store} />
+                       }
                 />
                 <Route path='/profile'
                        render={() =>
-                           <Profile store={props.store}/>
+                           <Profile store={props.store} />
                        }
                 />
                 {/*NOT WORKING AREA---NOT WORKING AREA---NOT WORKING AREA---NOT WORKING AREA---NOT WORKING AREA---*/}
