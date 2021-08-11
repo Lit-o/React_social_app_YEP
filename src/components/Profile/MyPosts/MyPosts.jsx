@@ -1,24 +1,24 @@
 import s from './MyPosts.module.css';
 import Post from './Post/Post';
 import React from 'react';
-import {addLettersActionCreator, addPostActionCreator} from "../../../redux/profile-reducer";
 
 
 const MyPosts = (props) => {
+
+    // создаем новый массив postsElement переберая старый с методом .map элементы обозвали post
     let postsElement = props.postsData.map(post => <Post message={post.message} likes={post.likesCount}/>)
+
+    //Линкуем textarea чтобы потом к нему обращаться через current
     let newPostElement = React.createRef();
 
-    //при нажимании вызываем profileReducer с помощью метода .dispatch и понеслась.
-    //Основной движ в profile-reducer.js за всеми комментариями туда
+    //обращаемся к диспатчам
     let addPost = () => {
-        props.dispatch(addPostActionCreator());
+        props.addPostActionCreatorDumpFunc();
     }
-
-    //при нажимании вызываем profileReducer с помощью метода .dispatch и понеслась.
-    //Основной движ в profile-reducer.js за всеми комментариями туда
+    //обращаемся к диспатчам
     let addLetters = () => {
         let letters = newPostElement.current.value;
-        props.dispatch(addLettersActionCreator(letters));
+        props.addLettersActionCreatorDumpFunk(letters)
     }
 
     return (

@@ -14,7 +14,16 @@ const Dialogs = (props) => {
         )
     })
     /*По сути тот же мап, как и наверху, но в сокращенной записи*/
-    let messagesElements = state.messagesData.map( text => <Message message={text.message}/>)
+    // let messagesElements = state.messagesData.map( text => <Message message={text.message}/>)
+    let messagesElements = state.messagesData.map( (text) => {
+     return (
+                  // здесь оглошаем компоненту, капсулу логики маленького объекта,
+                  // и зашиваем данные, чтобы модуль мог к ним обратиться в своем файле
+                  // при этом text здесь - это каждый из объектов массива messagesData к
+                  // которому мы обращаемся за свойством message
+         <Message message={text.message}/>
+     )
+    })
     let newMessageBody = state.dialog;
     let newMessages = React.createRef();
 
@@ -33,7 +42,7 @@ const Dialogs = (props) => {
                 { dialogsElements }
             </div>
             <div className={s.messages}>
-                <div>{messagesElements}</div>
+                <div>{ messagesElements }</div>
                 <div>
                     <div>
                         <textarea

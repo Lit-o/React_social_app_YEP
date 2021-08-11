@@ -20,20 +20,21 @@ const App = (props) => {
             <Header/>
             <Nav state={props.state.sideBar}/>
 
+
             <div className='app-wrapper-content'>
                 <Route path='/dialogs'
-                       render={() => <Dialogs
-                       stateDialogs={props.state.messagesPage}
-                       dispatch={props.dispatch}
-                       />}
+                       render={() =>
+                           <Dialogs
+                               stateDialogs={props.state.messagesPage}
+                               dispatch={props.dispatch}
+                           />}
                 />
                 <Route path='/profile'
-                       render={() => <Profile
-                           state={props.state.profilePage}
-                           dispatch={props.dispatch}
-                       />}
+                       render={() =>
+                           <Profile store={props.store}/>
+                       }
                 />
-
+                {/*NOT WORKING AREA---NOT WORKING AREA---NOT WORKING AREA---NOT WORKING AREA---NOT WORKING AREA---*/}
                 <Route path='/news'
                        render={() => <News/>}/>
                 <Route path='/music'
@@ -47,8 +48,6 @@ const App = (props) => {
                                <div>Friends</div>
                            )
                        }}/>
-
-                {/*<Route path='/dialogs' component={Dialogs}/>*/}
             </div>
         </div>
     );
