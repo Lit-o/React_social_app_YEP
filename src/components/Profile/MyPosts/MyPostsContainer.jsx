@@ -1,31 +1,29 @@
-import React from 'react';
 import {addLettersActionCreator, addPostActionCreator} from "../../../redux/profile-reducer";
 import MyPosts from "./MyPosts";
+import {connect} from "react-redux";
 
 // Это контейнерная компонента, задача которой только обратиться
 // к презентанционной компоненте <MyPosts /> и снабдить ее логикой/dispatch'ами и BLL данными
 
-const MyPostsContainer = (props) => {
-    let state = props.store.getState();
 
-    //при нажимании вызываем profileReducer с помощью метода .dispatch и понеслась.
-    //Основной движ в profile-reducer.js за всеми комментариями туда
-    let addPost = () => {
-        props.store.dispatch(addPostActionCreator());
+let mapStateToProps = (state) => {
+    return {
+        postsData: state.profilePage.postsData,
+        letterL: state.profilePage.letterL
     }
-    //при нажимании вызываем profileReducer с помощью метода .dispatch и понеслась.
-    //Основной движ в profile-reducer.js за всеми комментариями туда
-    let addLetters = (letters) => {
-        props.store.dispatch(addLettersActionCreator(letters));
-    }
-    return (
-            <MyPosts
-                addPostActionCreatorDumpFunc={addPost}
-                addLettersActionCreatorDumpFunk={addLetters}
-                postsData={state.profilePage.postsData}
-                letterL={state.profilePage.letterL}
-            />
-    )
 }
+
+let mapDispatchToProps = (dispatch) => {
+    return {
+        addPostActionCreatorDumpFunc: () => {
+            dispatch(addPostActionCreator());
+        },
+        addLettersActionCreatorDumpFunk: (letters) => {
+            dispatch(addLettersActionCreator(letters));
+        }
+    }
+}
+
+const MyPostsContainer = connect(mapStateToProps, mapDispatchToProps)(MyPosts)
 
 export default MyPostsContainer;

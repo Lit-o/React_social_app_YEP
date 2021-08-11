@@ -7,6 +7,7 @@ import './index.css';
 
 import App from './App';
 import store from "./redux/redux-store";
+import {Provider} from "react-redux";
 
 
 // Оглашаем главную основную функцию, которая все-все соберет и нарисует
@@ -14,9 +15,9 @@ let rerenderEntireTree = () => {
     ReactDOM.render(
         <BrowserRouter>
             <React.StrictMode>
-                <App store={store}
-                     // dispatch={store.dispatch.bind(store)}
-                />
+                <Provider store={store}>
+                    <App/>
+                </Provider>
             </React.StrictMode>
         </BrowserRouter>, document.getElementById('root')
     );
@@ -34,10 +35,10 @@ rerenderEntireTree(store.getState());
 //обновления. Поэтому создаем newState и даем ему новые данные
 //с помощью store.getState() - видимо тоже вшитый метод redux
 //для получения из него данных
-store.subscribe( () => {
+store.subscribe(() => {
     let newState = store.getState();
     rerenderEntireTree(newState);
-} );
+});
 
 // If you want to start measuring performance in your app, pass a function
 // to log results (for example: reportWebVitals(console.log))

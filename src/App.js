@@ -1,6 +1,6 @@
 import './App.css';
 import Header from './components/Header/Header';
-import Nav from './components/Nav/Nav';
+import NavContainer from './components/Nav/NavContainer';
 import Profile from './components/Profile/Profile';
 import {Route} from "react-router-dom";
 import News from "./components/News/News";
@@ -14,21 +14,27 @@ let someComponentSettings = () => <Settings attr='massive maybe'/>
 /*Эта функция теперь имеет название someComponent и мы ее можем вызвать далее*/
 
 
-const App = (props) => {
+const App = () => {
     return (
         <div className='app-wrapper'>
             <Header/>
-            <Nav store={props.store}/>
+            <NavContainer
+                // store={props.store}
+            />
 
             <div className='app-wrapper-content'>
                 <Route path='/dialogs'
                        render={() =>
-                           <DialogsContainer store={props.store} />
+                           <DialogsContainer
+                               // store={props.store}
+                           />
                        }
                 />
                 <Route path='/profile'
                        render={() =>
-                           <Profile store={props.store} />
+                           <Profile
+                               // store={props.store}
+                           />
                        }
                 />
                 {/*NOT WORKING AREA---NOT WORKING AREA---NOT WORKING AREA---NOT WORKING AREA---NOT WORKING AREA---*/}
