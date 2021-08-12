@@ -46,20 +46,25 @@ export const addLettersActionCreator = (letters) => {
 
 const profileReducer = (state = initialState, action) => {
     switch (action.type) {
-
-        case UPDATE_NEW_POST_TEXT:
-            state.letterL = action.text;
-            return state;
-
-        case ADD_POST:
+        case ADD_POST: {
             let newPost = {
                 id: 5,
                 message: state.letterL,
                 likesCount: 0
             };
-            state.postsData.push(newPost);
-            state.letterL = '';
-            return state;
+            // Копируем объект и все требуемые мутации делаем с копией, оригинал не трогаем
+            let stateCopy = {...state};
+            stateCopy.postsData = {...state.postsData};
+            stateCopy.postsData.push(newPost);
+            stateCopy.letterL = '';
+            return stateCopy;
+        };
+        case UPDATE_NEW_POST_TEXT: {
+            let stateCopy = {...state};
+            stateCopy.letterL = action.text;
+            return stateCopy;
+        }
+
 
         default:
             return state;

@@ -2,6 +2,7 @@ import profileReducer from "./profile-reducer";
 import messageReducer from "./messages-reducer";
 import sidebarReducer from "./sidebar-reducer";
 
+//Не используется, оставлен для ориентирования по store
 let store = {
     _state: {
         profilePage: {
