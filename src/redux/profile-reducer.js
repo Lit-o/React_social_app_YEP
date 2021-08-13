@@ -54,18 +54,16 @@ const profileReducer = (state = initialState, action) => {
             };
             // Копируем объект и все требуемые мутации делаем с копией, оригинал не трогаем
             let stateCopy = {...state};
-            stateCopy.postsData = {...state.postsData};
+            stateCopy.postsData = [...state.postsData];
             stateCopy.postsData.push(newPost);
             stateCopy.letterL = '';
             return stateCopy;
-        };
+        }
         case UPDATE_NEW_POST_TEXT: {
             let stateCopy = {...state};
             stateCopy.letterL = action.text;
             return stateCopy;
         }
-
-
         default:
             return state;
     }
