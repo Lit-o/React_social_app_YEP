@@ -14,26 +14,39 @@ let initialState = {
         {id: 3, message: "I'm fine, thx and u?"},
         {id: 4, message: "I'm fine, thx and Yo?"}
     ],
-    dialog: 'D'
+    dialog: 'D',
+    idCount: 4
 };
 
+
+
+//dispatch   Это и есть логика dispatch
 const messageReducer = (state = initialState, action) => {
+
     switch (action.type) {
         case UPDATE_NEW_POST_DIALOG:
-            state.dialog = action.body;
-            return state;
+            return {...state,
+                dialog: action.body
+            }
+        //    в данном случае даже не создавали переменную stateCopy, чтобы ее вернуть,
+        //    а просто сразу вернули нужную анонимную копию state с изменениями
+
         case SEND_MESSAGE:
-            let body = state.dialog
-            state.dialog = '';
-            state.messagesData.push({id: 5, message: body})
-            return state;
+            let stateCopy = {...state,
+                messagesData: [...state.messagesData, {id: state.idCount+1, message: state.dialog}],
+                idCount: state.idCount+1,
+                dialog: ''
+            };
+            return stateCopy;
+            // мы выше и скопировали и через запятую сразу вписали в копию массива новый объект в фигурных скобках
+            //и вообще внесли кучу нового в сам момент копирования,
+            //ВАЖНО! Если мы хотим добавить в начало массива, то
+            // messagesData: [{id: state.idCount+1, message: state.dialog}, ...state.messagesData]
+
         default:
             return state;
     }
 }
-
-
-
 
 export const addPostDialogCreator = () => {
     return {
@@ -46,6 +59,5 @@ export const addLettersDialogCreator = (body) => {
         body: body
     }
 }
-
 
 export default messageReducer;

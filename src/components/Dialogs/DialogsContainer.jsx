@@ -1,3 +1,6 @@
+//container генерирует state для презентационной компоненты
+//генерирует dispatch b
+
 import {addLettersDialogCreator, addPostDialogCreator} from "../../redux/messages-reducer"
 import Dialogs from "./Dialogs";
 import {connect} from "react-redux";

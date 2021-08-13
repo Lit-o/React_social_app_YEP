@@ -44,6 +44,10 @@ export const addLettersActionCreator = (letters) => {
 // меняя данные объекта reducers в свойстве profilePage(это свойство мы
 // придумали сами, и оно должно намекать на компонент, в котором используется)
 
+
+// В messageReducer все зарефакторино и более сжато написано,
+// вписывается все в копию в момент создания копии
+// здесь оставлено громоздко для сравнения, что можно писать и так и так
 const profileReducer = (state = initialState, action) => {
     switch (action.type) {
         case ADD_POST: {

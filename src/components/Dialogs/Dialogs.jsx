@@ -1,3 +1,13 @@
+//Презентационная компонента нужна для отрисовки UI
+//и, после отрисовки, когда пользователь уже сможет
+//взаимодействовать - здесь установлены на что-то интерактивное
+//функции коллбеки,
+//которые передадут в Container сигнал о том, что
+//произошло какое-то событие и это событие дало
+//или не дало какие-то конкретные данные.
+
+
+
 import React from "react";
 import s from './Dialogs.module.css';
 import Message from "./Message/Message";
@@ -8,7 +18,7 @@ const Dialogs = (props) => {
     /*маппим якобы данные с сервера в JSX и далее подставляем эти новые массивы в основной return*/
     let dialogsElements = props.dialogsData.map((dialog) => {
         return (
-            <DialogItem name={dialog.name} id={dialog.id}/>
+            <DialogItem name={dialog.name} key={dialog.id} id={dialog.id}/>
         )
     })
     /*По сути тот же мап, как и наверху, но в сокращенной записи*/
@@ -19,7 +29,7 @@ const Dialogs = (props) => {
             // и зашиваем данные, чтобы модуль мог к ним обратиться в своем файле
             // при этом text здесь - это каждый из объектов массива messagesData к
             // которому мы обращаемся за свойством message
-            <Message message={text.message}/>
+            <Message message={text.message} key={text.id} />
         )
     })
 

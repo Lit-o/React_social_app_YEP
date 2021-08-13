@@ -1,0 +1,15 @@
+img {
+    width: 50px;
+}
+
+.item_wrapper {
+    display: inline-block;
+    width: 120px;
+    height: 320px;
+    margin: 15px;
+    padding: 10px;
+    box-sizing: border-box;
+
+    border: 2px solid #077;
+    vertical-align: top;
+}

@@ -7,6 +7,7 @@ import News from "./components/News/News";
 import Music from "./components/Music/Music";
 import Settings from "./components/Settings/Settings";
 import DialogsContainer from "./components/Dialogs/DialogsContainer";
+import UsersContainer from "./components/Users/UsersContainer";
 
 
 let someComponentMusic = () => <Music/>
@@ -17,26 +18,19 @@ let someComponentSettings = () => <Settings attr='massive maybe'/>
 const App = () => {
     return (
         <div className='app-wrapper'>
-            <Header/>
-            <NavContainer
-                // store={props.store}
-            />
+            <Header />
+            <NavContainer />
 
             <div className='app-wrapper-content'>
                 <Route path='/dialogs'
-                       render={() =>
-                           <DialogsContainer
-                               // store={props.store}
-                           />
-                       }
-                />
+                       render={() => <DialogsContainer />} />
                 <Route path='/profile'
-                       render={() =>
-                           <Profile
-                               // store={props.store}
-                           />
-                       }
-                />
+                       render={() => <Profile />} />
+
+                <Route path='/users'
+                       render={() => <UsersContainer />}  />
+
+
                 {/*NOT WORKING AREA---NOT WORKING AREA---NOT WORKING AREA---NOT WORKING AREA---NOT WORKING AREA---*/}
                 <Route path='/news'
                        render={() => <News/>}/>
