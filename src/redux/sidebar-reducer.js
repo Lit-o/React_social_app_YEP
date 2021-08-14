@@ -1,5 +1,5 @@
 let initialState = {
-    friendsHot: ['Jhon', 'Jackie Chan', 'Fiona']
+    friendsHot: ['John', 'Jackie Chan', 'Fiona']
 }
 
 const sidebarReducer = (state = initialState, action) => {
