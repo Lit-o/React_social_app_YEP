@@ -1,79 +1,72 @@
 import React from "react";
 import styles from './users.module.css'
+// import * as axios from "axios";
+import axios from "axios";
+import userPhoto from '../../assets/images/ava.png'
 
-let Users = (props) => {
-    if (props.users.length === 0) {
-        props.setUsersDuFu([
-            {
-                id: 1,
-                photoUrl: "https://icons-for-free.com/iconfiles/png/512/business+face+people+icon-1320086457520622872.png",
-                followed: true,
-                fullName: 'Noel R.',
-                status: "I am a Noel! Hello!",
-                location: {city: 'Mopti', country: 'Mali'}
-            },
-            {
-                id: 2,
-                photoUrl: "https://icons-for-free.com/iconfiles/png/512/business+face+people+icon-1320086457520622872.png",
-                followed: true,
-                fullName: 'Noel F.',
-                status: "I am a Noel Too! Hello!",
-                location: {city: 'Bamako', country: 'Mali'}
-            },
-            {
-                id: 3,
-                photoUrl: "https://icons-for-free.com/iconfiles/png/512/business+face+people+icon-1320086457520622872.png",
-                followed: true,
-                fullName: 'Ivan S.',
-                status: "Hello! I'm from SPb",
-                location: {city: 'Saint Petersburg', country: 'Russia'}
-            },
-            {
-                id: 4,
-                photoUrl: "https://icons-for-free.com/iconfiles/png/512/business+face+people+icon-1320086457520622872.png",
-                followed: false,
-                fullName: 'Fedor G.',
-                status: "Where I'm?",
-                location: {city: 'Unknown', country: 'Unknown'}
-            }
-        ])
+
+class Users extends React.Component {
+
+    //это можно удалить, по дефолту это реакт и так ставит, если нет другой добавочной логики.
+    constructor(props) {
+        super(props);
     }
 
-    return <div>
-        {
-            props.users.map(user =>
-                <div key={user.id} className={styles.item_wrapper}>
+    //мы тут оращаемся к методу жизненного цикла React
+    // componentDidMount, при котором компонента выполнила свое "чистое" предназначение и отрисовалась в DOM
+    componentDidMount() {
+        alert("NEW");
+        //делаем запрос на эндпоинт по юрл
+        axios.get("https://social-network.samuraijs.com/api/1.0/users").then(response => {
+            this.props.setUsersDuFu(response.data.items)
+        })
+    }
+
+
+    render() {
+        return <div>
+
+            {
+                this.props.users.map(user =>
+                    <div key={user.id} className={styles.item_wrapper}>
                 <span>
                     <div>
-                        <img src="" alt="" className={styles.pic}/>
+                        <img src={user.photos} alt="" className={styles.pic}/>
                     </div>
                     <div>
                         {user.followed
                             ? <button onClick={() => {
-                                props.unfollowDumFun(user.id)
+                                this.props.unfollowDumFun(user.id)
                             }}>Unfollow</button>
                             : <button onClick={() => {
-                                props.followDumFun(user.id)
+                                this.props.followDumFun(user.id)
                             }}>Follow</button>}
 
                     </div>
                 </span>
+                        <span>
                     <span>
-                    <span>
-                        <div> <img src={user.photoUrl} alt="sleep sugar"/>
+                        <div> <img src={user.photos.small != null ? user.photos.small : userPhoto } alt="user"/>
                             </div>
-                        <div>{user.fullName}</div>
+                        <div>{user.name}</div>
                         <div>{user.status}</div>
                     </span>
                     <span>
-                        <div>{user.location.country}</div>
-                         <div>{user.location.city}</div>
+                        <div>
+                            {'user.location.country'}
+                        </div>
+                         <div>
+                             {'user.location.city'}
+                         </div>
                     </span>
                 </span>
 
-                </div>)
-        }
-    </div>
+
+                    </div>)
+            }
+
+        </div>
+    }
 }
 
 export default Users;
