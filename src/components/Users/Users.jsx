@@ -15,11 +15,14 @@ class Users extends React.Component {
     //мы тут оращаемся к методу жизненного цикла React
     // componentDidMount, при котором компонента выполнила свое "чистое" предназначение и отрисовалась в DOM
     componentDidMount() {
-        alert("NEW");
-        //делаем запрос на эндпоинт по юрл
-        axios.get("https://social-network.samuraijs.com/api/1.0/users").then(response => {
-            this.props.setUsersDuFu(response.data.items)
-        })
+        debugger;
+        if (this.props.users.length === 0) {
+            alert("NEW");
+            //делаем запрос на эндпоинт по юрл
+            axios.get("https://social-network.samuraijs.com/api/1.0/users").then(response => {
+                this.props.setUsersDuFu(response.data.items)
+            })
+        }
     }
 
 
