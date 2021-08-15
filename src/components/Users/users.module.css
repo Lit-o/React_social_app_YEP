@@ -13,3 +13,8 @@ img {
     border: 2px solid #077;
     vertical-align: top;
 }
+
+.selectedPage {
+    padding: 5px;
+    font-weight: bold;
+}

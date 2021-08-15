@@ -1,10 +1,17 @@
 const FOLLOW = 'FOLLOW';
 const UNFOLLOW = 'UNFOLLOW';
 const SET_USERS = 'SET-USERS';
+const SET_CURRENT_PAGE = 'SET_CURRENT_PAGE';
+const SET_TOTAL_COUNT = 'SET_TOTAL_COUNT';
+
 
 
 let initialState = {
-    users: []
+    users: [],
+    pageSize: 5,
+    totalUsersCount: 0,
+    //текущая страница
+    currentPage: 2
 };
 
 
@@ -38,9 +45,18 @@ const usersReducer = (state = initialState, action) => {
             }
 
         case SET_USERS: {
-            return {...state, users: [...state.users, ...action.users]}
+            return {...state, users: [...action.users]}
+
+            // return {...state, users: [...state.users, ...action.users]}
             //    мы копируем стейт поверхностно, потом поглубже копируем users
             //    и в нем говорим, старые state.users, добавьтесь новыми action.users
+        }
+
+        case SET_CURRENT_PAGE: {
+            return {...state, currentPage: action.currentPage}
+        }
+        case SET_TOTAL_COUNT : {
+            return {...state, totalUsersCount: action.count}
         }
         default:
             return state;
@@ -55,7 +71,10 @@ export const followAC = (userId) => {
 }
 export const unfollowAC = (userId) => ({type: UNFOLLOW, userId: userId})
 export const setUsersAC = (users) => ({type: SET_USERS, users: users})
-
-
+                                                                        //currentPage тк одинаковые названия значения
+                                                                        // свойства и входящей переменной, то
+                                                                        // можно сократить и написать currentPage
+export const setCurrentPageAC = (currentPage) => ({type: SET_CURRENT_PAGE, currentPage})
+export const setTotalUsersCountAC = (totalUsersCount) => ({type: SET_TOTAL_COUNT, count: totalUsersCount})
 
 export default usersReducer;
