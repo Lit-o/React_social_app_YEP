@@ -44,7 +44,7 @@ let Users = (props) => {
                 </span>
                     <span>
                     <span>
-                        <div> <img src={user.photos.small != null ? user.photos.small : userPhoto} alt="user"/>
+                        <div> <img src={user.photos.small != null ? user.photos.small : userPhoto} alt="user" className={styles.userImg}/>
                             </div>
                         <div>{user.name}</div>
                         <div>{user.status}</div>
