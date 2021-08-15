@@ -11,7 +11,7 @@ let initialState = {
     pageSize: 5,
     totalUsersCount: 0,
     //текущая страница
-    currentPage: 2
+    currentPage: 1
 };
 
 
