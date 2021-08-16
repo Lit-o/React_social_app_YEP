@@ -11,6 +11,7 @@ import React from "react";
 import axios from "axios";
 import Users from "./Users";
 import Fetching from "../../assets/images/fetching.gif"
+import Preloader from "../common/Preloader/Preloader";
 
 //AJAX--GET--LOGIC--CLASS--CONTAINER--AREA--AJAX--GET--LOGIC--CLASS--CONTAINER--AREA--AJAX--GET--LOGIC--CLASS--CONTAINER
 
@@ -43,9 +44,9 @@ class UsersAPIComponent extends React.Component {
     }
     render() {
         return <>
-            {/*сделаем из этого компоненту потом*/}
             <div>
-                {this.props.isFetching ? <img src={Fetching}/> : null}
+                {this.props.isFetching ? <Preloader/> : null}
+                {/*{this.props.isFetching ? <span>>>>DOWNLOADING DATA>>></span> : null}*/}
             </div>
             <Users totalUsersCount={this.props.totalUsersCount}
                           pageSize={this.props.pageSize}

@@ -12,7 +12,7 @@ let initialState = {
     totalUsersCount: 0,
     //текущая страница
     currentPage: 1,
-    isFetching: true
+    isFetching: false
 };
 
 
