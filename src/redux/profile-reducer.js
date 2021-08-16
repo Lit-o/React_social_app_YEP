@@ -1,3 +1,11 @@
+//создаем экшон криейторы(action creators), интерфейсы, action в правильном строгом формате, которые
+// будем вызывать на контактах UI и забирать в них данные
+// сами криейторы экспортируем отсюда и будем импортировать на UI, здесь они только
+// описаны. Вызываться они будут в момент взаимодействия, то есть это коллбеки
+const ADD_POST = 'ADD-POST';
+const UPDATE_NEW_POST_TEXT = 'UPDATE-NEW-POST-TEXT';
+const SET_USER_PROFILE = 'SET_USER_PROFILE';
+
 //создаем дефолт данные до первых реальных данных
 let initialState = {
     postsData: [
@@ -6,15 +14,10 @@ let initialState = {
         {id: 3, message: "I'm fine, thx and u?", likesCount: 11},
         {id: 4, message: "o la la", likesCount: 55}
     ],
-    letterL: 'Da'
+    letterL: 'Da',
+    profile: null
 };
 
-//создаем экшон криейторы(action creators), интерфейсы, action в правильном строгом формате, которые
-// будем вызывать на контактах UI и забирать в них данные
-// сами криейторы экспортируем отсюда и будем импортировать на UI, здесь они только
-// описаны. Вызываться они будут в момент взаимодействия, то есть это коллбеки
-const ADD_POST = 'ADD-POST';
-const UPDATE_NEW_POST_TEXT = 'UPDATE-NEW-POST-TEXT';
 
 export const addPostActionCreator = () => {
     return {
@@ -27,6 +30,7 @@ export const addLettersActionCreator = (letters) => {
         text: letters
     }
 }
+export const setUserProfile = (profile) => ({type:SET_USER_PROFILE, profile})
 
 
 // Описываем работу profileReducer (Он же и есть диспатч этого файла).
@@ -67,6 +71,9 @@ const profileReducer = (state = initialState, action) => {
             let stateCopy = {...state};
             stateCopy.letterL = action.text;
             return stateCopy;
+        }
+        case SET_USER_PROFILE: {
+            return {...state, profile: action.profile}
         }
         default:
             return state;

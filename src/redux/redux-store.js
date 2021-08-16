@@ -19,7 +19,7 @@ let reducers = combineReducers({
 // redux магией createStore со сшитых логик reducers создаем новый store
 let store = createStore(reducers);
 
-// window.store = store;
+window.store = store;
 // можно это расскоментить и в консоле в гугле прописать store.getState() для отладки
 
 export default store;
