@@ -5,6 +5,7 @@ import profileReducer from "./profile-reducer";
 import messageReducer from "./messages-reducer";
 import sidebarReducer from "./sidebar-reducer";
 import usersReducer from "./users-reduser";
+import authReducer from "./auth-reducer";
 
 // redux магией combineReducers сшиваем все логики в один объект
 // свойства типа profilePage и тд мы будем использовать в контейнерных компонентах для приготовления пропсов,
@@ -13,7 +14,8 @@ let reducers = combineReducers({
     profilePage: profileReducer,
     messagesPage: messageReducer,
     sideBar: sidebarReducer,
-    usersPage: usersReducer
+    usersPage: usersReducer,
+    auth: authReducer
 })
 
 // redux магией createStore со сшитых логик reducers создаем новый store
