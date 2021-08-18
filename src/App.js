@@ -1,5 +1,5 @@
 import './App.css';
-import Header from './components/Header/Header';
+import HeaderContainer from './components/Header/HeaderContainer';
 import NavContainer from './components/Nav/NavContainer';
 import {Route} from "react-router-dom";
 import News from "./components/News/News";
@@ -18,7 +18,7 @@ let someComponentSettings = () => <Settings attr='massive maybe'/>
 const App = () => {
     return (
         <div className='app-wrapper'>
-            <Header />
+            <HeaderContainer />
             <NavContainer />
 
             <div className='app-wrapper-content'>

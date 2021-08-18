@@ -3,9 +3,10 @@ const SET_USER_DATA = 'SET_USER_DATA';
 
 let initialState = {
     id: null,
-    email: null,
     login: null,
-    isFetching: false
+    email: null,
+    isFetching: false,
+    isAuth: false
 };
 
 const authReducer = (state = initialState, action) => {
@@ -13,7 +14,8 @@ const authReducer = (state = initialState, action) => {
         case SET_USER_DATA:
             return {
                 ...state,
-                ...action.data
+                ...action.data,
+                isAuth: true
             }
 
         default:
@@ -21,5 +23,6 @@ const authReducer = (state = initialState, action) => {
     }
 }
 
-export const setUsersData = (id, email, login) => ({type: SET_USER_DATA, data:{id, email, login} })
+//Action Creator
+export const setAuthUsersData = (id, login, email) => ({type: SET_USER_DATA, data:{id, login, email} })
 export default authReducer;
