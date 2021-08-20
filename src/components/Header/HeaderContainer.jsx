@@ -10,6 +10,7 @@ class HeaderContainer extends React.Component {
 
         axios.get(`https://social-network.samuraijs.com/api/1.0/auth/me`, {
             //авторизация какие-то доп настройки для браузера
+            //запрос делает не анонимным, а с привязкой кук
             withCredentials: true,
         }).then(response => {
 

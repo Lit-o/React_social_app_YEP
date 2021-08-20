@@ -5,7 +5,7 @@ import {
     setUsersAC,
     setCurrentPageAC,
     setTotalUsersCountAC,
-    isFetchingAC
+    isFetchingAC, isFollowingAC
 } from "../../redux/users-reduser";
 import React from "react";
 import Users from "./Users";
@@ -57,6 +57,8 @@ class UsersAPIComponent extends React.Component {
                    users={this.props.users}
                    unfollowDumFun={this.props.unfollowDumFun}
                    followDumFun={this.props.followDumFun}
+                   isFollowingAC={this.props.isFollowingAC}
+                   followingInProgress={this.props.followingInProgress}
             />
 
         </>
@@ -72,7 +74,8 @@ let mapStateToProps = (state) => {
         pageSize: state.usersPage.pageSize,
         totalUsersCount: state.usersPage.totalUsersCount,
         currentPage: state.usersPage.currentPage,
-        isFetching: state.usersPage.isFetching
+        isFetching: state.usersPage.isFetching,
+        followingInProgress: state.usersPage.followingInProgress
     }
 }
 // Зарефакторили эту запись ниже заменив mapDispatchToProps объектом с ссылками на Action Creators
@@ -114,5 +117,6 @@ export default connect(mapStateToProps, {
     setUsersDuFu: setUsersAC,
     setCurrentPageDF: setCurrentPageAC,
     setTotalUsersCountDF: setTotalUsersCountAC,
-    isFetchingDF: isFetchingAC
+    isFetchingDF: isFetchingAC,
+    isFollowingAC: isFollowingAC,
 })(UsersAPIComponent);

@@ -36,8 +36,12 @@ let Users = (props) => {
                         </NavLink>
                     </div>
                     <div>
+                        {/*узнаем по условию какую кнопку включать*/}
                         {user.followed
-                            ? <button onClick={() => {
+
+                            ? <button disabled={props.followingInProgress.some(id => id===user.id)} onClick={() => {
+                                debugger;
+                                props.isFollowingAC(true,user.id);
                                 axios.delete(`https://social-network.samuraijs.com/api/1.0/follow/${user.id}`, {
                                     //запрос делает не анонимным, а с привязкой кук
                                     withCredentials:true,
@@ -48,10 +52,13 @@ let Users = (props) => {
                                     if (response.data.resultCode === 0) {
                                         props.unfollowDumFun(user.id)
                                     }
+                                    props.isFollowingAC(false,user.id);
                                 })
                             }}>Unfollow</button>
 
-                            : <button onClick={() => {
+
+                            : <button disabled={props.followingInProgress.some(i => i===user.id)} onClick={() => {
+                                props.isFollowingAC(true,user.id);
                                 axios.post(`https://social-network.samuraijs.com/api/1.0/follow/${user.id}`, {}, {
                                     withCredentials:true,
                                     headers: {
@@ -61,6 +68,7 @@ let Users = (props) => {
                                     if (response.data.resultCode === 0) {
                                         props.followDumFun(user.id)
                                     }
+                                    props.isFollowingAC(false,user.id);
                                 })
                             }}>Follow</button>}
 

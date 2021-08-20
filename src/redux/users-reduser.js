@@ -3,7 +3,8 @@ const UNFOLLOW = 'UNFOLLOW';
 const SET_USERS = 'SET-USERS';
 const SET_CURRENT_PAGE = 'SET_CURRENT_PAGE';
 const SET_TOTAL_COUNT = 'SET_TOTAL_COUNT';
-const TOGGLE_IS_FETCHING = 'TOGGLE_IS_FETCHING'
+const TOGGLE_IS_FETCHING = 'TOGGLE_IS_FETCHING';
+const TOGGLE_IS_FOLLOWING_PROGRESS = 'TOGGLE_IS_FOLLOWING_PROGRESS';
 
 
 let initialState = {
@@ -12,7 +13,8 @@ let initialState = {
     totalUsersCount: 0,
     //текущая страница
     currentPage: 1,
-    isFetching: false
+    isFetching: false,
+    followingInProgress: []
 };
 
 
@@ -64,6 +66,22 @@ const usersReducer = (state = initialState, action) => {
             return {...state, isFetching: action.isFetching}
         }
 
+        //Что ниже происходит?
+        // Если - (?) происходит обработка запроса, прогрузка - action.isFetching ?,
+        // то мы прогружаемый элемент записываем в массив - [...state.followingInProgress, action.userId],
+        // иначе - (:) если action.isFetching не происходит,
+        // то мы берем массив state.followingInProgress,
+        // создаем из него новый массив методом .filter и этот новый массив
+        // пропустит только те id, которые не равны action.userId,
+        // то есть все id, кроме того, за которым мы в этом процессе наблюдаем
+        case TOGGLE_IS_FOLLOWING_PROGRESS : {
+            return {...state,
+                followingInProgress: action.isFetching
+                    ? [...state.followingInProgress, action.userId]
+                    : state.followingInProgress.filter(id => id != action.userId)
+             }
+        }
+
         default:
             return state;
     }
@@ -83,6 +101,7 @@ export const setUsersAC = (users) => ({type: SET_USERS, users: users})
 export const setCurrentPageAC = (currentPage) => ({type: SET_CURRENT_PAGE, currentPage})
 export const setTotalUsersCountAC = (totalUsersCount) => ({type: SET_TOTAL_COUNT, count: totalUsersCount})
 export const isFetchingAC = (isFetching) => ({type: TOGGLE_IS_FETCHING, isFetching})
+export const isFollowingAC = (isFetching, userId) => ({type: TOGGLE_IS_FOLLOWING_PROGRESS, isFetching, userId})
 
 
 export default usersReducer;
