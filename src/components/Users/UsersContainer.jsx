@@ -8,9 +8,10 @@ import {
     isFetchingAC
 } from "../../redux/users-reduser";
 import React from "react";
-import axios from "axios";
 import Users from "./Users";
 import Preloader from "../common/Preloader/Preloader";
+import {usersAPI} from "../../api/api";
+
 
 //AJAX--GET--LOGIC--CLASS--CONTAINER--AREA--AJAX--GET--LOGIC--CLASS--CONTAINER--AREA--AJAX--GET--LOGIC--CLASS--CONTAINER
 
@@ -25,14 +26,11 @@ class UsersAPIComponent extends React.Component {
     componentDidMount() {
         if (this.props.users.length === 0) {
             this.props.isFetchingDF(true)
-            // alert("NEW");
-            //делаем запрос на эндпоинт по юрл
-            axios.get(`https://social-network.samuraijs.com/api/1.0/users?page=${this.props.currentPage}&count=${this.props.pageSize}` , {
-                withCredentials: true
-            }).then(response => {
+
+            usersAPI.getUsers(this.props.currentPage, this.props.pageSize).then(data => {
                 this.props.isFetchingDF(false)
-                this.props.setUsersDuFu(response.data.items);
-                this.props.setTotalUsersCountDF(response.data.totalCount)
+                this.props.setUsersDuFu(data.items);
+                this.props.setTotalUsersCountDF(data.totalCount)
             })
         }
     }
@@ -40,11 +38,9 @@ class UsersAPIComponent extends React.Component {
     onPagenationClick = (pageNumber) => {
         this.props.setCurrentPageDF(pageNumber);
         this.props.isFetchingDF(true);
-        axios.get(`https://social-network.samuraijs.com/api/1.0/users?page=${pageNumber}&count=${this.props.pageSize}` , {
-            withCredentials: true
-        }).then(response => {
+        usersAPI.getUsers(pageNumber, this.props.pageSize).then(data => {
             this.props.isFetchingDF(false);
-            this.props.setUsersDuFu(response.data.items)
+            this.props.setUsersDuFu(data.items)
         })
     }
 
