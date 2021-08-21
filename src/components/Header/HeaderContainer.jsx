@@ -3,16 +3,12 @@ import Header from "./Header";
 import axios from "axios";
 import {connect} from "react-redux";
 import {setAuthUsersData} from "../../redux/auth-reducer";
+import {authAPI} from "../../api/api";
 
 
 class HeaderContainer extends React.Component {
     componentDidMount() {
-
-        axios.get(`https://social-network.samuraijs.com/api/1.0/auth/me`, {
-            //авторизация какие-то доп настройки для браузера
-            //запрос делает не анонимным, а с привязкой кук
-            withCredentials: true,
-        }).then(response => {
+        authAPI.me().then(response => {
 
                 if (response.data.resultCode === 0) {
                     //axois упаковывает данные в data и на бекенде

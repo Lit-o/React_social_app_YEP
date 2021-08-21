@@ -19,6 +19,15 @@ export const usersAPI = {
     },
     unfollow(user) {
         return instance.delete(`follow/${user}`)
+    },
+    getProfile (userId) {
+        return instance.get(`profile/` + userId);
+    },
+}
+
+export const authAPI = {
+    me() {
+        return instance.get(`auth/me`)
     }
 }
 //сделали из функции объект с методом,

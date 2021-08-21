@@ -2,6 +2,8 @@
 // будем вызывать на контактах UI и забирать в них данные
 // сами криейторы экспортируем отсюда и будем импортировать на UI, здесь они только
 // описаны. Вызываться они будут в момент взаимодействия, то есть это коллбеки
+import {usersAPI} from "../api/api";
+
 const ADD_POST = 'ADD-POST';
 const UPDATE_NEW_POST_TEXT = 'UPDATE-NEW-POST-TEXT';
 const SET_USER_PROFILE = 'SET_USER_PROFILE';
@@ -31,6 +33,11 @@ export const addLettersActionCreator = (letters) => {
     }
 }
 export const setUserProfile = (profile) => ({type:SET_USER_PROFILE, profile})
+
+export const getUserProfile = (userId) => (dispatch) => {
+    usersAPI.getProfile(userId).then(response => {
+        dispatch(setUserProfile(response.data));
+    })}
 
 
 // Описываем работу profileReducer (Он же и есть диспатч этого файла).
