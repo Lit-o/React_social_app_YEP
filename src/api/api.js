@@ -13,6 +13,12 @@ export const usersAPI = {
     getUsers(currentPage = 1, pageSize = 3) {
         return instance.get(`users?page=${currentPage}&count=${pageSize}`)
             .then(response => response.data)
+    },
+    follow(user) {
+        return instance.post(`follow/${user}`)
+    },
+    unfollow(user) {
+        return instance.delete(`follow/${user}`)
     }
 }
 //сделали из функции объект с методом,

@@ -1,16 +1,14 @@
 import {connect} from "react-redux";
 import {
-    followAC,
-    unfollowAC,
-    setUsersAC,
     setCurrentPageAC,
-    setTotalUsersCountAC,
-    isFetchingAC, isFollowingAC
+    isFollowingAC,
+    getUsersThunkCreator,
+    follow, unfollow
 } from "../../redux/users-reduser";
 import React from "react";
 import Users from "./Users";
 import Preloader from "../common/Preloader/Preloader";
-import {usersAPI} from "../../api/api";
+
 
 
 //AJAX--GET--LOGIC--CLASS--CONTAINER--AREA--AJAX--GET--LOGIC--CLASS--CONTAINER--AREA--AJAX--GET--LOGIC--CLASS--CONTAINER
@@ -24,24 +22,29 @@ class UsersAPIComponent extends React.Component {
     //мы тут оращаемся к методу жизненного цикла React
     // componentDidMount, при котором компонента выполнила свое "чистое" предназначение и отрисовалась в DOM
     componentDidMount() {
-        if (this.props.users.length === 0) {
-            this.props.isFetchingDF(true)
-
-            usersAPI.getUsers(this.props.currentPage, this.props.pageSize).then(data => {
-                this.props.isFetchingDF(false)
-                this.props.setUsersDuFu(data.items);
-                this.props.setTotalUsersCountDF(data.totalCount)
-            })
-        }
+            this.props.getUsersThunkCreator(this.props.users, this.props.currentPage, this.props.pageSize);
+        // if (this.props.users.length === 0) {
+        //     this.props.isFetchingDF(true)
+        //
+        //     usersAPI.getUsers(this.props.currentPage, this.props.pageSize).then(data => {
+        //         this.props.isFetchingDF(false)
+        //         this.props.setUsersDuFu(data.items);
+        //         this.props.setTotalUsersCountDF(data.totalCount)
+        //     });
+        // }
     }
 
     onPagenationClick = (pageNumber) => {
-        this.props.setCurrentPageDF(pageNumber);
-        this.props.isFetchingDF(true);
-        usersAPI.getUsers(pageNumber, this.props.pageSize).then(data => {
-            this.props.isFetchingDF(false);
-            this.props.setUsersDuFu(data.items)
-        })
+
+        this.props.getUsersThunkCreator([], pageNumber, this.props.pageSize);
+        // this.props.setCurrentPageDF(pageNumber);
+        // this.props.isFetchingDF(true);
+        // usersAPI.getUsers(pageNumber, this.props.pageSize).then(data => {
+        //     this.props.isFetchingDF(false);
+        //     this.props.setUsersDuFu(data.items)
+        //
+        //
+        // })
     }
 
     render() {
@@ -55,10 +58,9 @@ class UsersAPIComponent extends React.Component {
                    currentPage={this.props.currentPage}
                    onPagenationClick={this.onPagenationClick}
                    users={this.props.users}
-                   unfollowDumFun={this.props.unfollowDumFun}
-                   followDumFun={this.props.followDumFun}
-                   isFollowingAC={this.props.isFollowingAC}
                    followingInProgress={this.props.followingInProgress}
+                   unfollow={this.props.unfollow}
+                   follow={this.props.follow}
             />
 
         </>
@@ -112,11 +114,9 @@ let mapStateToProps = (state) => {
 // покачто я этого делать не буду, чтобы пописать где DF, AC но вообще рефактор возможен.
 
 export default connect(mapStateToProps, {
-    followDumFun: followAC,
-    unfollowDumFun: unfollowAC,
-    setUsersDuFu: setUsersAC,
     setCurrentPageDF: setCurrentPageAC,
-    setTotalUsersCountDF: setTotalUsersCountAC,
-    isFetchingDF: isFetchingAC,
     isFollowingAC: isFollowingAC,
-})(UsersAPIComponent);
+    getUsersThunkCreator: getUsersThunkCreator,
+    follow: follow,
+    unfollow: unfollow
+    })(UsersAPIComponent);

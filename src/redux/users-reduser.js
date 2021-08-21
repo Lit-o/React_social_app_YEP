@@ -1,3 +1,5 @@
+import {usersAPI} from "../api/api";
+
 const FOLLOW = 'FOLLOW';
 const UNFOLLOW = 'UNFOLLOW';
 const SET_USERS = 'SET-USERS';
@@ -18,7 +20,6 @@ let initialState = {
 };
 
 
-
 //dispatch   Это и есть логика dispatch
 const usersReducer = (state = initialState, action) => {
     switch (action.type) {
@@ -26,11 +27,11 @@ const usersReducer = (state = initialState, action) => {
             return {
                 ...state,
                 //users: state.users.map(u => u) идентична users: [...state.users] и там и там создается новый массив
-                users: state.users.map( usersArrayObject => {
+                users: state.users.map(usersArrayObject => {
                     if (usersArrayObject.id === action.userId) {
-                        return {...usersArrayObject, followed:true}
-                                                //Запятая в данном случае говорит - скопируй и создай новый
-                                                //объект, но в нем поменяй свойство followed на true
+                        return {...usersArrayObject, followed: true}
+                        //Запятая в данном случае говорит - скопируй и создай новый
+                        //объект, но в нем поменяй свойство followed на true
                     }
                     return usersArrayObject;
                 })
@@ -39,9 +40,9 @@ const usersReducer = (state = initialState, action) => {
         case UNFOLLOW:
             return {
                 ...state,
-                users: state.users.map( usersArrayObject => {
+                users: state.users.map(usersArrayObject => {
                     if (usersArrayObject.id === action.userId) {
-                        return {...usersArrayObject, followed:false}
+                        return {...usersArrayObject, followed: false}
                     }
                     return usersArrayObject;
                 })
@@ -75,11 +76,12 @@ const usersReducer = (state = initialState, action) => {
         // пропустит только те id, которые не равны action.userId,
         // то есть все id, кроме того, за которым мы в этом процессе наблюдаем
         case TOGGLE_IS_FOLLOWING_PROGRESS : {
-            return {...state,
+            return {
+                ...state,
                 followingInProgress: action.isFetching
                     ? [...state.followingInProgress, action.userId]
                     : state.followingInProgress.filter(id => id != action.userId)
-             }
+            }
         }
 
         default:
@@ -87,21 +89,77 @@ const usersReducer = (state = initialState, action) => {
     }
 }
 
-export const followAC = (userId) => {
+
+// Action Creators
+export const followSuccess = (userId) => {
     return {
         type: FOLLOW,
         userId: userId
     }
 }
-export const unfollowAC = (userId) => ({type: UNFOLLOW, userId: userId})
+export const unfollowSuccess = (userId) => ({type: UNFOLLOW, userId: userId})
 export const setUsersAC = (users) => ({type: SET_USERS, users: users})
-                                                                        //currentPage тк одинаковые названия значения
-                                                                        // свойства и входящей переменной, то
-                                                                        // можно сократить и написать currentPage
+//currentPage тк одинаковые названия значения
+// свойства и входящей переменной, то
+// можно сократить и написать currentPage
 export const setCurrentPageAC = (currentPage) => ({type: SET_CURRENT_PAGE, currentPage})
 export const setTotalUsersCountAC = (totalUsersCount) => ({type: SET_TOTAL_COUNT, count: totalUsersCount})
 export const isFetchingAC = (isFetching) => ({type: TOGGLE_IS_FETCHING, isFetching})
 export const isFollowingAC = (isFetching, userId) => ({type: TOGGLE_IS_FOLLOWING_PROGRESS, isFetching, userId})
+
+
+// Это чистая Thunk, ее обернем и ниже создадим Thunk Creator для замыкания и выхода к данным в файле
+// export const getUsersThunk = (dispatch) => {
+//     if (users.length === 0) {
+//         dispatch(isFetchingDF(true))
+//
+//         usersAPI.getUsers(this.props.currentPage, this.props.pageSize).then(data => {
+//             dispatch(isFetchingDF(false));
+//             dispatch(setUsersDuFu(data.items));
+//             dispatch(setTotalUsersCountDF(data.totalCount));
+//         });
+//     }
+// }
+
+export const getUsersThunkCreator = (users, currentPage, pageSize) => {
+    return (dispatch) => {
+        if (users.length === 0) {
+            dispatch(isFetchingAC(true))
+            usersAPI.getUsers(currentPage, pageSize).then(data => {
+                dispatch(isFetchingAC(false));
+                dispatch(setUsersAC(data.items));
+                dispatch(setCurrentPageAC(currentPage));
+                dispatch(setTotalUsersCountAC(data.totalCount));
+            });
+        }
+    }
+}
+
+export const follow = (userId) => {
+    return (dispatch) => {
+        dispatch(isFollowingAC(true, userId))
+        usersAPI.follow(userId)
+            .then(response => {
+            if (response.data.resultCode === 0) {
+                dispatch(followSuccess(userId));
+            }
+            dispatch(isFollowingAC(false, userId));
+        });
+    }
+}
+
+export const unfollow = (userId) => {
+    return (dispatch) => {
+        dispatch(isFollowingAC(true, userId))
+        usersAPI.unfollow(userId).then(response => {
+            if (response.data.resultCode === 0) {
+                dispatch(unfollowSuccess(userId))
+            }
+            dispatch(isFollowingAC(false, userId));
+        })
+    }
+}
+
 
 
 export default usersReducer;
